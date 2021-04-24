@@ -30,6 +30,7 @@ $Global:MidGroups = @('Senior management','Project management');
 $Global:NormalGroups = @('maintenance','logistics','accounting');
 $Global:BadACL = @('GenericAll','GenericWrite','WriteOwner','WriteDACL','Self');
 $Global:CreatedUsers = @();
+$Global:TrooperUsers = @();
 $Global:AllObjects = @();
 $Global:Domain = "";
 #Strings 
@@ -88,17 +89,18 @@ function VulnAD-AddADTrooper {
     )
     Add-Type -AssemblyName System.Web
     for ($i=1; $i -le $limit; $i=$i+1 ) {
-        $Global:TrooperUnits
-        $Global:TrooperNumbers
         $trooperprefix = (VulnAD-GetRandom -InputList $Global:TrooperUnits)
         $troopersuffix = (VulnAD-GetRandom -InputList $Global:TrooperNumbers)
         $fullname = $("$trooperprefix-$troopersuffix")
+        $firstname = $("$trooperprefix-$troopersuffix")
+        $lastname = ""
         $SamAccountName = $("$trooperprefix-$troopersuffix").ToLower()
         $principalname = $("$trooperprefix-$troopersuffix")
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating $SamAccountName User"
         Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
-        $Global:CreatedUsers += $SamAccountName;
+        $Global:CreatedUsers += $SamAccountName
+        $GlobalTrooperUsers += $SamAccountName
     }
 
 }
@@ -246,7 +248,7 @@ function VulnAD-DisableSMBSigning {
 function Invoke-VulnAD {
     Param(
         [int]$UsersLimit = 100,
-        [int]$TroopersLimit = 100,
+        [int]$TroopersLimit = 10,
         [Parameter(Mandatory=$True,ValueFromPipeline=$True,ValueFromPipelineByPropertyName=$True,Position=1)]
         [ValidateNotNullOrEmpty()]
         [System.String]
