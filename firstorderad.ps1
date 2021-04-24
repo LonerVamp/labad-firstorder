@@ -11,10 +11,10 @@ $Global:VIPs = @(@('Enric','Pryde','Allegiant General'),@('Rae','Sloane','Grand 
 
 # an array of arrays listing out first name, last name, and description for First Order notables.
 # remember to accommodate for missing last names and descriptions when creating users.
-$Global:Others = @(@('Phasma','','Captain and First Head of the First Order Stormtrooper Corps'),@('Terax','','Agent of the First Order Security Bureau'),@('Tierny','','Agent of the First Order Security Bureau'),@('Pyre','','Stormtrooper Commander'),@('BaronElrik','Vonreg','TIE Fighter Pilot'),@('Lieutenant','Galek','TIE Fighter Pilot'),@('Tamara','Ryvora','Cadet DD-533 2nd Squadron Commander'),@('Jace','Rucklin','Cadet DT-798 TIE Fighter Pilot'),@('Lin','Gaava','TIE Fighter Pilot'),@('Carise','Sindian','Lady, Senator of Arkanis'),@('Gideon','Hask','Commander Owner of the Resurgent-class Star Destroyer Retribution'),@('Major','Tullan','Flametrooper'),@('Edison','Peavey','Captain of the Resurgent-class Star Destroyer Finalizer'),@('Colonel','Kaplan','Colonel on the Resurgent-class Star Destroyer Finalizer'),@('Thanisson','','Petty Officer on the Resurgent-class Star Destroyer Finalizer'),@('Masir','Trach','Commander on the Resurgent-class Star Destroyer Steadfast'),@('Lanzora','Garan','Lieutenant on the Resurgent-class Star Destroyer Steadfast'),@('Tishra','Kandia','Intelligence Officer on the Resurgent-class Star Destroyer Steadfast'),@('Datoo','','Colonel on Starkiller Base'),@('Rodinon','','Lieutenant on Starkiller Base'),@('Mandetat','','Technician on Starkiller Base'),@('Moden','Canady','Captain of the Mandator IV-class Siege Dreadnought Fulminatrix'),@('Goneril','','Adjutant on the Mandator IV-class Siege Dreadnought Fulminatrix'),@('Suday','Bascus','Warrant Officer on the Mandator IV-class Siege Dreadnought Fulminatrix'),@('BB-9E','',''),@('Malarus','','Commander'),@('Isin','',''),@('KanBe','',''),@('Toren','',''),@('Aplek','','Knight of Ren'),@('Cardo','','Knight of Ren'),@('Kuruk','','Knight of Ren'),@('Trudgen','','Knight of Ren'),@('Ushar','','Knight of Ren'),@('Vicrul','','Knight of Ren'),@('TD-110','','Wanten, Stormtrooper Commander on Starkiller Base'),@('FN-2187','','Finn'),@('FN-2199','','Nines'),@('FN-2003','',''),@('FN-417','',''),@('FN-9330','',''),@('FN-2802','',''),@('CS-9147','',''),@('TZ-1719','','Jannah'),@('JL-3621','','Jayelle'),@('JL-4410','','Forten'))
+$Global:Otherusers = @(@('Phasma','','Captain and First Head of the First Order Stormtrooper Corps'),@('Terax','','Agent of the First Order Security Bureau'),@('Tierny','','Agent of the First Order Security Bureau'),@('Pyre','','Stormtrooper Commander'),@('BaronElrik','Vonreg','TIE Fighter Pilot'),@('Lieutenant','Galek','TIE Fighter Pilot'),@('Tamara','Ryvora','Cadet DD-533 2nd Squadron Commander'),@('Jace','Rucklin','Cadet DT-798 TIE Fighter Pilot'),@('Lin','Gaava','TIE Fighter Pilot'),@('Carise','Sindian','Lady, Senator of Arkanis'),@('Gideon','Hask','Commander Owner of the Resurgent-class Star Destroyer Retribution'),@('Major','Tullan','Flametrooper'),@('Edison','Peavey','Captain of the Resurgent-class Star Destroyer Finalizer'),@('Colonel','Kaplan','Colonel on the Resurgent-class Star Destroyer Finalizer'),@('Thanisson','','Petty Officer on the Resurgent-class Star Destroyer Finalizer'),@('Masir','Trach','Commander on the Resurgent-class Star Destroyer Steadfast'),@('Lanzora','Garan','Lieutenant on the Resurgent-class Star Destroyer Steadfast'),@('Tishra','Kandia','Intelligence Officer on the Resurgent-class Star Destroyer Steadfast'),@('Datoo','','Colonel on Starkiller Base'),@('Rodinon','','Lieutenant on Starkiller Base'),@('Mandetat','','Technician on Starkiller Base'),@('Moden','Canady','Captain of the Mandator IV-class Siege Dreadnought Fulminatrix'),@('Goneril','','Adjutant on the Mandator IV-class Siege Dreadnought Fulminatrix'),@('Suday','Bascus','Warrant Officer on the Mandator IV-class Siege Dreadnought Fulminatrix'),@('BB-9E','',''),@('Malarus','','Commander'),@('Isin','',''),@('KanBe','',''),@('Toren','',''),@('Aplek','','Knight of Ren'),@('Cardo','','Knight of Ren'),@('Kuruk','','Knight of Ren'),@('Trudgen','','Knight of Ren'),@('Ushar','','Knight of Ren'),@('Vicrul','','Knight of Ren'),@('TD-110','','Wanten, Stormtrooper Commander on Starkiller Base'),@('FN-2187','','Finn'),@('FN-2199','','Nines'),@('FN-2003','',''),@('FN-417','',''),@('FN-9330','',''),@('FN-2802','',''),@('CS-9147','',''),@('TZ-1719','','Jannah'),@('JL-3621','','Jayelle'),@('JL-4410','','Forten'))
 
 # some common base groups for enterprise needs
-$GLobal:BaseGroups = @('NoAccess','Local Admins','Desktop Support')
+$GLobal:BaseGroups = @('No Access','Local Admins','Desktop Support')
 
 # array of AD group names. Troopers and other users can be placed into these groups.
 $Global:TrooperGroups = @('Elite Praetorian Guards','Stormtroopers','Riot Stormtroopers','Flametroopers','Snowtroopers','Megablaster Heavy Troopers','Executioner Troopers','Jet Troopers','Electroprod Troopers','TIE Pilots','Special Forces TIE Pilots','Walker pilots','vehicle commanders','engineers','gunners')
@@ -22,7 +22,7 @@ $Global:TrooperGroups = @('Elite Praetorian Guards','Stormtroopers','Riot Stormt
 # ad-managed service accounts
 $Global:ServiceAccountsAndSPNs = @('mssql_svc,mssqlserver','http_svc,httpserver','exchange_svc,exserver','detention_level_door_security_control,detentiondoorcntrl','garbage_master_3263827_task_scheduler,garbagetasksched','tractor_beam_control,tractorbeamcntrl');
 
-# service accounts just need an account name and password and maybe put into NoAccess group or other groups by accident!
+# service accounts just need an account name and password and maybe put into No Access group or other groups by accident!
 $Global:ServiceAccounts = @('turbolaser_operations','super_blaster_920_targeting','light_ion_cannon_ops','twin_heavy_laser_control','quad_laser_cannon_turret_control','starfighter_launch_sequencing','shuttle_control_routing','landing_craft_control','officer-use_shuttle_system','life_support_module_control','detention_level_badge_control','detention_level communications','detention_level_video_surveillance_control','detention_level_door_security_control2','detention _level_riot_suppression_system','garbage_master_3263827_task_scheduler2','tractor_beam_control2','droid_interface_access_panel_power','shuttle_bay_force_field_modulator','elevator_security_camera_operations','portable_life_form_inspection_system','alarm_klaxon_control');
 
 $Global:HighGroups = @('Office Admin','IT Admins','Executives');
@@ -30,6 +30,7 @@ $Global:MidGroups = @('Senior management','Project management');
 $Global:NormalGroups = @('maintenance','logistics','accounting');
 $Global:BadACL = @('GenericAll','GenericWrite','WriteOwner','WriteDACL','Self');
 $Global:CreatedUsers = @();
+$Global:CreatedServiceAccounts = @();
 $Global:TrooperUsers = @();
 $Global:AllObjects = @();
 $Global:Domain = "";
@@ -65,25 +66,71 @@ function VulnAD-AddADGroup {
         $Global:AllObjects += $group;
     }
 }
-function VulnAD-AddADUser {
+function VulnAD-AddOtherUsers {
+    Add-Type -AssemblyName System.Web
+    foreach($newaduser in $Global:Otherusers) {
+        if ($newaduser[0]){$firstname = $newaduser[0]}else{$firstname = ""}
+        if ($newaduser[1]){$lastname = $newaduser[1]}else{$lastname = ""}
+        $fullname = "{0} {1}" -f ($firstname, $lastname)
+        if ($newaduser[2]){$description = $newaduser[2]}else{$description = ""}
+        if ($firstname -and $lastname){$SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()} else {$SamAccountName=$firstname.ToLower()}
+        if ($firstname -and $lastname){$principalname = "{0}.{1}" -f ($firstname, $lastname)} else {$principalname=$firstname}
+        $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
+        Write-Info "Creating User $SamAccountName"
+        #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
+        #Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
+        $Global:CreatedUsers += $SamAccountName;
+    }   
+}
+function VulnAD-AddVIPs {
+    Add-Type -AssemblyName System.Web
+    foreach($newaduser in $Global:VIPs) {
+        if ($newaduser[0]){$firstname = $newaduser[0]} else {$firstname = ""}
+        if ($newaduser[1]){$lastname = $newaduser[1]} else {$lastname = ""}
+        $fullname = "{0} {1}" -f ($firstname, $lastname)
+        if ($newaduser[2]){$description = $newaduser[2]} else {$description = ""}
+        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()
+        $principalname = "{0}.{1}" -f ($firstname, $lastname)
+        $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
+        Write-Info "Creating User $SamAccountName"
+        #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
+        #Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
+        $Global:CreatedUsers += $SamAccountName;
+    }   
+}
+function VulnAD-AddServiceAccounts {
+    Add-Type -AssemblyName System.Web
+    foreach($newaduser in $Global:ServiceAccounts) {
+    $firstname = $fullname = $SamAccountName = $principalname = $newaduser.ToLower()
+    $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
+    Write-Info "Creating User $SamAccountName"
+    #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
+    #Try { New-ADUser -Name "$firstname" -GivenName $firstname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
+    #Try { add-adgroupmember -identity "No Access" -member $SamAccountName } Catch {}
+    #Try { remove-adgroupmember -identity "Domain Users" -member $SamAccountName } Catch {}
+    $Global:CreatedUsers += $SamAccountName
+    $Global:CreatedServiceAccounts += $SamAccountName
+    }
+}
+function VulnAD-AddRandomUsers {
     Param(
         [int]$limit = 1
     )
     Add-Type -AssemblyName System.Web
     for ($i=1; $i -le $limit; $i=$i+1 ) {
-        $firstname = (VulnAD-GetRandom -InputList $Global:HumansNames);
-        $lastname = (VulnAD-GetRandom -InputList $Global:HumansNames);
-        $fullname = "{0} {1}" -f ($firstname , $lastname);
-        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower();
-        $principalname = "{0}.{1}" -f ($firstname, $lastname);
+        $firstname = (VulnAD-GetRandom -InputList $Global:HumansNames)
+        $lastname = (VulnAD-GetRandom -InputList $Global:HumansNames)
+        $fullname = "{0} {1}" -f ($firstname , $lastname)
+        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()
+        $principalname = "{0}.{1}" -f ($firstname, $lastname)
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
-        Write-Info "Creating $SamAccountName User"
-        Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
-        $Global:CreatedUsers += $SamAccountName;
+        Write-Info "Creating User $SamAccountName"
+        #Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
+        $Global:CreatedUsers += $SamAccountName
     }
 
 }
-function VulnAD-AddADTrooper {
+function VulnAD-AddTroopers {
     Param(
         [int]$limit = 1
     )
@@ -91,14 +138,14 @@ function VulnAD-AddADTrooper {
     for ($i=1; $i -le $limit; $i=$i+1 ) {
         $trooperprefix = (VulnAD-GetRandom -InputList $Global:TrooperUnits)
         $troopersuffix = (VulnAD-GetRandom -InputList $Global:TrooperNumbers)
-        $fullname = $("$trooperprefix-$troopersuffix")
-        $firstname = $("$trooperprefix-$troopersuffix")
+        $fullname = "{0}-{1}" -f ($trooperprefix, $troopersuffix);
+        $firstname = "{0}-{1}" -f ($trooperprefix, $troopersuffix);
         $lastname = ""
         $SamAccountName = $("$trooperprefix-$troopersuffix").ToLower()
         $principalname = $("$trooperprefix-$troopersuffix")
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating $SamAccountName User"
-        Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
+        #Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
         $Global:CreatedUsers += $SamAccountName
         $GlobalTrooperUsers += $SamAccountName
     }
@@ -247,7 +294,7 @@ function VulnAD-DisableSMBSigning {
 
 function Invoke-VulnAD {
     Param(
-        [int]$UsersLimit = 100,
+        [int]$UsersLimit = 50,
         [int]$TroopersLimit = 10,
         [Parameter(Mandatory=$True,ValueFromPipeline=$True,ValueFromPipelineByPropertyName=$True,Position=1)]
         [ValidateNotNullOrEmpty()]
@@ -255,23 +302,27 @@ function Invoke-VulnAD {
         $DomainName
     )
     $Global:Domain = $DomainName
-    Set-ADDefaultDomainPasswordPolicy -Identity $Global:Domain -LockoutDuration 00:01:00 -LockoutObservationWindow 00:01:00 -ComplexityEnabled $false -ReversibleEncryptionEnabled $False -MinPasswordLength 4
-    VulnAD-AddADUser -limit $UsersLimit
-    Write-Good "Users Created"
-    VulnAD-AddADTrooper -limit $TroopersLimit
-    Write-Bad "Troopers Created"
-	Write-Bad "VIPs Created"
-	Write-Bad "Other users Created"
-	Write-Bad "Service Accounts Created"
+    #Invoke-VulnAD -Userslimit 50 -TroopersLimit 50 -Domain "yourdomain.x"
+    #Set-ADDefaultDomainPasswordPolicy -Identity $Global:Domain -LockoutDuration 00:01:00 -LockoutObservationWindow 00:01:00 -ComplexityEnabled $false -ReversibleEncryptionEnabled $False -MinPasswordLength 4
     VulnAD-AddADGroup -GroupList $Global:BaseGroups
-    Write-Bad "Base Groups Created"
-    VulnAD-AddADGroup -GroupList $Global:TrooperGroups
+    Write-Good "Base Groups Created"
+    VulnAD-AddRandomUsers -limit $UsersLimit
+    Write-Good "Users Created"
+    VulnAD-AddTroopers -limit $TroopersLimit
+    Write-Good "Troopers Created"
+    VulnAD-AddVIPs
+    Write-Good "VIPs Created"
+    VulnAD-AddOtherUsers
+    Write-Good "Other users Created"
+    VulnAD-AddServiceAccounts
+	Write-Good "Service Accounts Created"
+    #VulnAD-AddADGroup -GroupList $Global:TrooperGroups
 	Write-Bad "Trooper Groups Created"
-    VulnAD-AddADGroup -GroupList $Global:HighGroups
+    #VulnAD-AddADGroup -GroupList $Global:HighGroups
     Write-Good "$Global:HighGroups Groups Created"
-    VulnAD-AddADGroup -GroupList $Global:MidGroups
+    #VulnAD-AddADGroup -GroupList $Global:MidGroups
     Write-Good "$Global:MidGroups Groups Created"
-    VulnAD-AddADGroup -GroupList $Global:NormalGroups
+    #VulnAD-AddADGroup -GroupList $Global:NormalGroups
     Write-Good "$Global:NormalGroups Groups Created"
 
 	
