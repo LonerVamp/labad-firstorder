@@ -50,7 +50,16 @@ function VulnAD-GetRandom {
    )
    return Get-Random -InputObject $InputList
 }
-
+function VulnAD-AddADBaseGroup {
+    Param(
+        [array]$GroupList
+    )
+    foreach ($group in $GroupList) {
+        Write-Info "Creating $group Group"
+        Try { New-ADGroup -name $group -GroupScope Global } Catch {}
+        $Global:AllObjects += $group;
+    }
+}
 function VulnAD-AddADGroup {
     Param(
         [array]$GroupList
@@ -304,7 +313,7 @@ function Invoke-VulnAD {
     $Global:Domain = $DomainName
     #Invoke-VulnAD -Userslimit 50 -TroopersLimit 50 -Domain "yourdomain.x"
     #Set-ADDefaultDomainPasswordPolicy -Identity $Global:Domain -LockoutDuration 00:01:00 -LockoutObservationWindow 00:01:00 -ComplexityEnabled $false -ReversibleEncryptionEnabled $False -MinPasswordLength 4
-    VulnAD-AddADGroup -GroupList $Global:BaseGroups
+    VulnAD-AddADBaseGroup -GroupList $Global:BaseGroups
     Write-Good "Base Groups Created"
     VulnAD-AddRandomUsers -limit $UsersLimit
     Write-Good "Users Created"
