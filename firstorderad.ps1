@@ -109,6 +109,7 @@ function VulnAD-AddVIPs {
 }
 function VulnAD-AddServiceAccounts {
     Add-Type -AssemblyName System.Web
+    $noaccessgrouptoken = (get-adgroup "No Access" -properties primaryGroupToken).primaryGroupToken
     foreach($newaduser in $Global:ServiceAccounts) {
     $firstname = $fullname = $principalname = $newaduser.ToLower()
     if ($newaduser.Length -le 20){$SamAccountName= $newaduser.ToLower()} else {$SamAccountName = $newaduser.ToLower()[0..19] -join ""}
@@ -117,6 +118,7 @@ function VulnAD-AddServiceAccounts {
     #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
     #Try { New-ADUser -Name "$firstname" -GivenName $firstname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
     #Try { add-adgroupmember -identity "No Access" -member $SamAccountName } Catch {}
+    #Try set-aduser -identity $SamAccountName -replace @{primarygroupid=$noaccessgrouptoken} Catch {}
     #Try { remove-adgroupmember -identity "Domain Users" -member $SamAccountName } Catch {}
     $Global:CreatedUsers += $SamAccountName
     $Global:CreatedServiceAccounts += $SamAccountName
