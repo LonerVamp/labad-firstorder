@@ -82,11 +82,11 @@ function VulnAD-AddOtherUsers {
         if ($newaduser[1]){$lastname = $newaduser[1]}else{$lastname = ""}
         $fullname = "{0} {1}" -f ($firstname, $lastname)
         if ($newaduser[2]){$description = $newaduser[2]}else{$description = ""}
-        if ($firstname -and $lastname){$SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()} else {$SamAccountName=$firstname.ToLower()}
+        if ($firstname -and $lastname){$SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()[0..19] -join ""} else {$SamAccountName=$firstname.ToLower()[0..19] -join ""}
         if ($firstname -and $lastname){$principalname = "{0}.{1}" -f ($firstname, $lastname)} else {$principalname=$firstname}
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating User $SamAccountName"
-        #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
+        write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
         #Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
         $Global:CreatedUsers += $SamAccountName;
     }   
@@ -98,19 +98,20 @@ function VulnAD-AddVIPs {
         if ($newaduser[1]){$lastname = $newaduser[1]} else {$lastname = ""}
         $fullname = "{0} {1}" -f ($firstname, $lastname)
         if ($newaduser[2]){$description = $newaduser[2]} else {$description = ""}
-        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()
+        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()[0..19] -join ""
         $principalname = "{0}.{1}" -f ($firstname, $lastname)
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating User $SamAccountName"
         #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
         #Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
-        $Global:CreatedUsers += $SamAccountName;
+        $Global:CreatedUsers += $SamAccountName
     }   
 }
 function VulnAD-AddServiceAccounts {
     Add-Type -AssemblyName System.Web
     foreach($newaduser in $Global:ServiceAccounts) {
-    $firstname = $fullname = $SamAccountName = $principalname = $newaduser.ToLower()
+    $firstname = $fullname = $principalname = $newaduser.ToLower()
+    if ($newaduser.Length -le 20){$SamAccountName= $newaduser.ToLower()} else {$SamAccountName = $newaduser.ToLower()[0..19] -join ""}
     $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
     Write-Info "Creating User $SamAccountName"
     #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
@@ -130,7 +131,7 @@ function VulnAD-AddRandomUsers {
         $firstname = (VulnAD-GetRandom -InputList $Global:HumansNames)
         $lastname = (VulnAD-GetRandom -InputList $Global:HumansNames)
         $fullname = "{0} {1}" -f ($firstname , $lastname)
-        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()
+        $SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()[0..19] -join ""
         $principalname = "{0}.{1}" -f ($firstname, $lastname)
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating User $SamAccountName"
