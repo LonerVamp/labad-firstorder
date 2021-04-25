@@ -107,7 +107,7 @@ function VulnAD-AddVIPs {
         #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
         Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
         $Global:CreatedUsers += $SamAccountName
-        $Global:VIPUsers =  += $SamAccountName
+        $Global:VIPUsers += $SamAccountName
     }   
 }
 function VulnAD-AddServiceAccounts {
@@ -169,7 +169,7 @@ function VulnAD-VipsIntoGroups {
     # add 3 random VIPs into Domain Admins
     foreach ($chosenvip in get-random -inputobject $Global:VIPUsers -count 3){
         Try { Add-ADGroupMember -Identity "Domain Admins" -Members $chosenvip } Catch {}
-        Write-Info "Domain Admins : $chosenvip"
+        Write-Info "Adding $chosenvip to Domain Admins"
     }
     # add every vip into a random high group, and 25% chance to be added into a second random high group
     # every vip gets a 50% chance to be added to a random mid group
@@ -179,22 +179,22 @@ function VulnAD-VipsIntoGroups {
             $randomhighgroup = get-random -inputobject $Global:HighGroups -count 2
             foreach ($highgroup in $randomhighgroup){
             Try { Add-ADGroupMember -Identity $highgroup -Members $chosenvip } Catch {}
-            Write-Info "$highgroup : $chosenvip"
+            Write-Info "Adding $chosenvip to $highgroup"
             }
         } else {
             $randomhighgroup = get-random -inputobject $Global:HighGroups
             Try { Add-ADGroupMember -Identity $randomhighgroup -Members $chosenvip } Catch {}
-            Write-Info "$randomhighgroup : $chosenvip"
+            Write-Info "Adding $chosenvip to $randomhighgroup"
         }
         if ((get-random -maximum 100) -gt 50){
             $randommidgroup = get-random -inputobject $Global:MidGroups
             Try { Add-ADGroupMember -Identity $randommidgroup -Members $chosenvip } Catch {}
-            Write-Info "$randommidgroup : $chosenvip"
+            Write-Info "Adding $chosenvip to $randommidgroup"
         }
         if ((get-random -maximum 100) -gt 90){
             $randomnormalgroup = get-random -inputobject $Global:NormalGroups
             Try { Add-ADGroupMember -Identity $randomnormalgroup -Members $chosenvip } Catch {}
-            Write-Info "$randomnormalgroup : $chosenvip"
+            Write-Info "Adding $chosenvip to $randomnormalgroup"
         }
     }
 }
@@ -209,10 +209,10 @@ function VulnAD-ServiceAccountsIntoGroups {
     foreach ($chosenserviceacct in get-random -inputobject $Global:CreatedServiceAccounts -count 5){
         $randomgroup = get-random -inputobject $Global:CreatedGroups
         Try { Add-ADGroupMember -Identity $randomgroup -Members $chosenserviceacct } Catch {}
-        Write-Info "$randomgroup : $chosenserviceacct"
+        Write-Info "Adding $chosenserviceacct to $randomgroup"
         $randomgroup = get-random -inputobject $Global:CreatedGroups
         Try { Add-ADGroupMember -Identity $randomgroup -Members $chosenserviceacct } Catch {}
-        Write-Info "$randomgroup : $chosenserviceacct"
+        Write-Info "Adding $chosenserviceacct to $randomgroup"
     }
 }
 function VulnAD-NestedGroups {
@@ -221,8 +221,8 @@ function VulnAD-NestedGroups {
         $randomgroup = get-random -inputobject $Global:CreatedGroups
         if ($randomgroup -ne $grouptonest){
              Try { Add-ADGroupMember -Identity $randomgroup -Members $grouptonest } Catch {}
-             Write-Info "$randomgroup : $grouptonest"
-    } else {Write-Bad "Duplicate detected and skipped: $randomgroup : $grouptonest"}
+             Write-Info "Adding $grouptonest to $randomgroup"
+    } else {Write-Bad "Duplicate detected and skipped: Adding $grouptonest to $randomgroup"}
     }
 }
 function VulnAD-RandomUsersIntoAdmins {
@@ -230,30 +230,30 @@ function VulnAD-RandomUsersIntoAdmins {
     #randomly choose 3 users and add into enterprise admins
     foreach ($jackpotuser in get-random -inputobject $Global:CreatedUsers -count 3){
         Try {Add-ADGroupMember -Identity "Domain Admins" -Members $jackpotuser} Catch {}
-        Write-Info "Domain Admins : $jackpotuser"
+        Write-Info "Adding $jackpotuser to Domain Admins"
     }
     foreach ($jackpotuser in get-random -inputobject $Global:CreatedUsers -count 3){
         Try {Add-ADGroupMember -Identity "Enterprise Admins" -Members $jackpotuser} Catch {}
-        Write-Info "Enterprise Admins : $jackpotuser"
+        Write-Info "Adding $jackpotuser to Enterprise Admins"
     }
 }
 function VulnAD-RandomServiceAccountsIntoDU {
     #randomly choose 3 service accounts and add into domain users
-    foreach ($serviceaccount in get-random -inputobject $Global:CreatedUsers -count 3){
+    foreach ($serviceaccount in get-random -inputobject $Global:CreatedServiceAccounts -count 3){
         Try {Add-ADGroupMember -Identity "Domain Users" -Members $serviceaccount} Catch {}
-        Write-Info "Domain Users : $serviceaccount"
+        Write-Info "Adding $serviceaccount to Domain Users"
     }
 }
 function VulnAD-RandomServiceAccountsIntoAdmins {
     #randomly choose 3 service accounts and add into domain admins
     #randomly choose 3 service accounts and add into enterprise admins
-    foreach ($jackpotsvcaccount in get-random -inputobject $Global:CreatedUsers -count 3){
+    foreach ($jackpotsvcaccount in get-random -inputobject $Global:CreatedServiceAccounts -count 3){
         Try {Add-ADGroupMember -Identity "Domain Admins" -Members $jackpotsvcaccount} Catch {}
-        Write-Info "Domain Admins : $jackpotsvcaccount"
+        Write-Info "Adding $jackpotsvcaccount to Domain Admins"
     }
-    foreach ($jackpotsvcaccount in get-random -inputobject $Global:CreatedUsers -count 3){
+    foreach ($jackpotsvcaccount in get-random -inputobject $Global:CreatedServiceAccounts -count 3){
         Try {Add-ADGroupMember -Identity "Enterprise Admins" -Members $jackpotsvcaccount} Catch {}
-        Write-Info "Enterprise Admins : $jackpotsvcaccount"
+        Write-Info "Adding $jackpotsvcaccount to Enterprise Admins"
     }
 }
 function VulnAD-AddACL {
@@ -344,7 +344,7 @@ function VulnAD-DnsAdmins {
     for ($i=1; $i -le (Get-Random -Maximum 6); $i=$i+1 ) {
         $randomuser = (VulnAD-GetRandom -InputList $Global:CreatedUsers)
         Add-ADGroupMember -Identity "DnsAdmins" -Members $randomuser
-        Write-Info "DnsAdmins : $randomuser"
+        Write-Info "Adding $randomuser to DnsAdmins"
     }
     $randomg = (VulnAD-GetRandom -InputList $Global:MidGroups)
     Add-ADGroupMember -Identity "DnsAdmins" -Members $randomg
@@ -422,7 +422,7 @@ function Invoke-VulnAD {
     VulnAD-AddServiceAccounts
 	Write-Good "Service Accounts Created"
     VulnAD-AddADGroup -GroupList $Global:TrooperGroups
-	Write-Bad "Trooper Groups Created"
+	Write-Good "Trooper Groups Created"
     VulnAD-AddADGroup -GroupList $Global:HighGroups
     Write-Good "$Global:HighGroups Groups Created"
     VulnAD-AddADGroup -GroupList $Global:MidGroups
@@ -431,19 +431,19 @@ function Invoke-VulnAD {
     Write-Good "$Global:NormalGroups Groups Created"
    
     VulnAD-VipsIntoGroups
-    Write-Bad "VIPs added into Groups"
+    Write-Good "VIPs added into Groups"
     VulnAD-UsersIntoGroups
-    Write-Bad "Named Users added into Groups"
+    Write-Good "Named Users added into Groups"
     VulnAD-ServiceAccountsIntoGroups
-    Write-Bad "Service Accounts added into Groups"
+    Write-Good "Service Accounts added into Groups"
     VulnAD-NestedGroups
-    Write-Bad "Groups added into other Groups"
+    Write-Good "Groups added into other Groups"
     VulnAD-RandomUsersIntoAdmins
-    Write-Bad "Random Users added into Admin Groups"
+    Write-Good "Random Users added into Admin Groups"
     VulnAD-RandomServiceAccountsIntoDU
-    Write-Bad "Random Service Accounts added into Domain Users"
+    Write-Good "Random Service Accounts added into Domain Users"
     VulnAD-RandomServiceAccountsIntoAdmins
-    Write-Bad "Random Service Accounts added into Admin Groups"
+    Write-Good "Random Service Accounts added into Admin Groups"
 
     #VulnAD-BadAcls
     Write-Good "BadACL Done"
