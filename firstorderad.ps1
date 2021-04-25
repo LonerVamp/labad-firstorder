@@ -160,7 +160,7 @@ function VulnAD-AddTroopers {
         $principalname = "{0}-{1}" -f ($trooperprefix, $troopersuffix);
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating $SamAccountName User"
-        Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
+        Try { New-ADUser -Name $fullname -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -PassThru | Enable-ADAccount } Catch {}
         $Global:CreatedUsers += $SamAccountName
         $Global:TrooperUsers += $SamAccountName
     }
