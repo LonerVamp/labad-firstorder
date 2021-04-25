@@ -88,7 +88,7 @@ function VulnAD-AddOtherUsers {
         if ($firstname -and $lastname){$principalname = "{0}.{1}" -f ($firstname, $lastname)} else {$principalname=$firstname}
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating User $SamAccountName"
-        write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
+        #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
         Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
         $Global:CreatedUsers += $SamAccountName;
     }   
@@ -424,11 +424,11 @@ function Invoke-VulnAD {
     VulnAD-AddADGroup -GroupList $Global:TrooperGroups
 	Write-Good "Trooper Groups Created"
     VulnAD-AddADGroup -GroupList $Global:HighGroups
-    Write-Good "$Global:HighGroups Groups Created"
+    Write-Good "$Global:HighGroups High Groups Created"
     VulnAD-AddADGroup -GroupList $Global:MidGroups
-    Write-Good "$Global:MidGroups Groups Created"
+    Write-Good "$Global:MidGroups Mid Groups Created"
     VulnAD-AddADGroup -GroupList $Global:NormalGroups
-    Write-Good "$Global:NormalGroups Groups Created"
+    Write-Good "$Global:NormalGroups Normal Groups Created"
    
     VulnAD-VipsIntoGroups
     Write-Good "VIPs added into Groups"
@@ -445,33 +445,25 @@ function Invoke-VulnAD {
     VulnAD-RandomServiceAccountsIntoAdmins
     Write-Good "Random Service Accounts added into Admin Groups"
 
-    #VulnAD-BadAcls
+    VulnAD-BadAcls
     Write-Good "BadACL Done"
-    #VulnAD-Kerberoasting
+    # https://book.hacktricks.xyz/windows/active-directory-methodology/acl-persistence-abuse
+    VulnAD-Kerberoasting
     Write-Good "Kerberoasting Done"
-    #VulnAD-ASREPRoasting
+    VulnAD-ASREPRoasting
     Write-Good "AS-REPRoasting Done"
-    #VulnAD-DnsAdmins
+    VulnAD-DnsAdmins
     Write-Good "DnsAdmins Done"
-    #VulnAD-DefaultPassword
+    VulnAD-DefaultPassword
     Write-Good "Leaked Password Done"
-    #VulnAD-PasswordSpraying
+    VulnAD-PasswordSpraying
     Write-Good "Password Spraying Done"
-    #VulnAD-DCSync
+    VulnAD-DCSync
     Write-Good "DCSync Done"
-    #VulnAD-DisableSMBSigning
+    VulnAD-DisableSMBSigning
     Write-Good "SMB Signing Disabled"
 }
 
-#some things maybe missing that I want?
-# edit human names to be trooper designations and change variable names
-# Domain Admins (just copy the DNS admins section)
-# throw something into Enterprise Admins?
-# static accounts and maybe some randoms in Domain Admins?
-# adjust high/medium/normal groups and expand
-# I don't think BADACLs allow for a path of control/delegation that would be a Bloodhound target, should try to script one or more of those (reset pass, memberof...?)
-# disable x random accounts
-# set unconstrained delegation onto a service account
-# look into randomly nesting some groups, maybe even nesting one into an important group like DNS Admins
+Write-Host "#Invoke-VulnAD -Userslimit 50 -TroopersLimit 50 -Domain 'yourdomain.x'"
 
 
