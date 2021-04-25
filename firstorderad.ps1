@@ -82,14 +82,14 @@ function VulnAD-AddOtherUsers {
     foreach($newaduser in $Global:Otherusers) {
         if ($newaduser[0]){$firstname = $newaduser[0]}else{$firstname = ""}
         if ($newaduser[1]){$lastname = $newaduser[1]}else{$lastname = ""}
-        $fullname = "{0} {1}" -f ($firstname, $lastname)
+        if ($lastname){$fullname = "{0} {1}" -f ($firstname, $lastname)} else {$fullname = $firstname}
         if ($newaduser[2]){$description = $newaduser[2]}else{$description = ""}
         if ($firstname -and $lastname){$SamAccountName = ("{0}.{1}" -f ($firstname, $lastname)).ToLower()[0..19] -join ""} else {$SamAccountName=$firstname.ToLower()[0..19] -join ""}
         if ($firstname -and $lastname){$principalname = "{0}.{1}" -f ($firstname, $lastname)} else {$principalname=$firstname}
         $generated_password = ([System.Web.Security.Membership]::GeneratePassword(12,2))
         Write-Info "Creating User $SamAccountName"
         #write-host "[ $fullname ][ $SamAccountName ][ $principalname ]"
-        Try { New-ADUser -Name "$firstname $lastname" -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
+        Try { New-ADUser -Name $fullname -GivenName $firstname -Surname $lastname -SamAccountName $SamAccountName -UserPrincipalName $principalname@$Global:Domain -AccountPassword (ConvertTo-SecureString $generated_password -AsPlainText -Force) -Description $description -PassThru | Enable-ADAccount } Catch {}
         $Global:CreatedUsers += $SamAccountName;
     }   
 }
@@ -370,7 +370,7 @@ function VulnAD-PasswordSpraying {
     }
 }
 function VulnAD-DCSync {
-    for ($i=1; $i -le (Get-Random -Maximum 6); $i=$i+1 ) {
+    for ($i=0; $i -le (Get-Random -Maximum 6); $i=$i+1 ) {
         $randomuser = (VulnAD-GetRandom -InputList $Global:CreatedUsers)
 
         $userobject = (Get-ADUser -Identity $randomuser).distinguishedname
